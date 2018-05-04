@@ -4,12 +4,13 @@
 <html>
 <title>爱芳网</title>
 <head>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.3.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <style type="text/css">  
         *{margin: 0;padding: 0;}  
         body  
         {  
-			 background-image: url(${pageContext.request.contextPath}/static/img/333.jpg);      
+			 background-image: url("${pageContext.request.contextPath}/static/img/333.jpg");      
         	 background-size:cover;  
             font-size: 12px; 
          
@@ -167,25 +168,65 @@
     <div class="wrap">  
         <div class="header">  
               
-            <h3>登录爱芳网</h3>  
+            <h3>注册爱芳网</h3>  
            
         </div>  
         <div class="main">  
          
-            <form action="${pageContext.request.contextPath}/login">  
-                <input type="text" name="userName"  class="demok3_input" placeholder="请输入用户名" style="height: 35px;width: 200px;margin-bottom: 30px;margin-top: 30px;margin-left: 23%;"/>  
-                <input type="password" name="pwd"  class="demok3_input" placeholder="请输入密码"  style="height: 35px;width: 200px;margin-bottom: 30px;margin-left: 23%;"/>  
-                <input type="submit" value="登录"  class="demok3_a" style="height: 32px;width: 100px;margin-left:35%;"/>  
-            </form>  
-            <div class="other">  
-				<a href="${pageContext.request.contextPath}/register.htm" class="pull-right"  style="height: 32px;width: 100px;">立即注册</a> 
-            </div>  
+                <input type="text" id="userName" name="userName"  class="demok3_input" placeholder="请输入用户名" style="height: 35px;width: 200px;margin-bottom: 30px;margin-top: 30px;margin-left: 23%;"/>  
+                <input type="password" id="pwd"  name="pwd"  class="demok3_input" placeholder="请输入密码"  style="height: 35px;width: 200px;margin-bottom: 30px;margin-left: 23%;"/>  
+                 <input type="password" id="pwd1"  name="pwd1"  class="demok3_input" placeholder="请输入确认密码"  style="height: 35px;width: 200px;margin-bottom: 30px;margin-left: 23%;"/>  
+                <input type="submit" id="zhuce" value="注册"  class="demok3_a" style="height: 32px;width: 100px;margin-left:35%;"/>  
+          
         </div>  
   
     </div>  
 
-
-  
-  
 </body><span style="color:#ffffff;">  
+<script>
+
+$(document).ready(function(){
+	
+	
+	$("#zhuce").click(function(){
+		var userName = $("#userName").val();
+		var pwd = $("#pwd").val();
+		var pwd1 = $("#pwd1").val();
+		if(userName == null || userName == undefined || userName == ""){
+			alert("请输入用户名");
+			return;
+		}
+		if(pwd == null || pwd == undefined || pwd == ""){
+			alert("请输入密码");
+			return;
+		}
+		if(pwd1 == null || pwd1 == undefined || pwd1 == ""){
+			alert("请输入确认密码");
+			return;
+		}
+
+		if(pwd != pwd1){
+			alert("密码不一致");
+			return;
+		}
+
+
+		$.ajax({  
+            type:"GET",  
+            url: "127.0.0.1:8080/ssmHello/register",  
+            data:{
+				userName:userName,
+				password:pwd
+	
+             },  
+             dataType:"json",
+            success:function(data){  
+               alert(data);
+            }  
+        });  
+
+	});
+});
+
+</script>
 </html></span> 
