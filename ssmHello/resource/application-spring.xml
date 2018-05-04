@@ -31,11 +31,13 @@
         <property name="maxPoolSize" value="${c3p0.pool.size.max}"></property>
     </bean>  
   
+
   
-    <!-- sessionFactory 将spring和mybatis整合 -->  
+   <!--2创建一个sql会话工厂bean，指定数据源 --> 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
         <property name="dataSource" ref="dataSource" />  
-        <property name="configLocation" value="classpath:application-mybaties.xml" />  
+        <property name="configLocation" value="classpath:application-mybaties.xml" /> 
+       	<property name="typeAliasesPackage" value="com.roberthuang.bean" /> 
         <property name="mapperLocations" value="classpath*:com/roberthuang/ssm/mapping/**/*.xml" />  
     </bean>  
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
