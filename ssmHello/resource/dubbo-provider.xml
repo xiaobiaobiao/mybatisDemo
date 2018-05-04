@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+       
+       
+    <dubbo:application name="dubbo_demo"  />
+    <dubbo:registry address="zookeeper://www.52hfang.com:2181" group="roberthuang"   />
+    <dubbo:protocol name="dubbo" port="20881" />
+    
+    <!-- 服务提供者 -->
+    <dubbo:service interface="com.roberthuang.ssm.service.ILoginService" ref="loginService" />
+    
+
+    <!-- 消费者 -->
+    <dubbo:reference interface="com.roberthuang.ssm.service.ILoginService" id="loginServiceConsume" check="false"/>
+    <dubbo:reference interface="com.roberthuang.ssm.service.IRedisService" id="redisService" check="false"/>
+</beans>

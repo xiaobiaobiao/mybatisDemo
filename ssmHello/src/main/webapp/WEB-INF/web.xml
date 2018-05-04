@@ -3,12 +3,17 @@
     xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     id="WebApp_ID" version="2.5">
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
   
     <!-- 配置 Spring -->  
     <context-param>  
         <param-name>contextConfigLocation</param-name>  
         <param-value>classpath:application-spring.xml</param-value>  
     </context-param>  
+    
     <listener>  
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
     </listener>  
@@ -26,7 +31,8 @@
             <param-value>classpath:application-springMvc.xml</param-value>  
         </init-param>  
         <load-on-startup>1</load-on-startup>  
-    </servlet>  
+    </servlet> 
+     
     <servlet-mapping>  
         <servlet-name>springMVC</servlet-name>  
         <url-pattern>/</url-pattern>  

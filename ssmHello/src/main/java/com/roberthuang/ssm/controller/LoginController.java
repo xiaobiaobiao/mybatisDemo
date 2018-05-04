@@ -7,14 +7,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.roberthuang.ssm.bean.User;
-import com.roberthuang.ssm.service.ILoginservice;
+import com.roberthuang.ssm.service.ILoginService;
+import com.roberthuang.ssm.service.IRedisService;
 
 @Controller
 @RequestMapping(value = "/")
 public class LoginController {
 
 	@Autowired
-	private ILoginservice loginService;
+	private ILoginService loginService;
+	
+	@Autowired
+	private IRedisService redisService;
 
 	@RequestMapping(value = "/login", produces = "text/html;charset=UTF-8")
 	@ResponseBody
@@ -25,7 +29,7 @@ public class LoginController {
 	
 	@RequestMapping(value = "/login.htm", produces = "text/html;charset=UTF-8")
 	private String getOtherList() {
-		
+		redisService.getValue("111");
 		return "login";
 	}
 }

@@ -6,13 +6,12 @@ import org.springframework.stereotype.Service;
 import com.roberthuang.ssm.bean.User;
 import com.roberthuang.ssm.dao.UserMapper;
 
-@Service
-public class LoginServiceImpl implements ILoginservice{
+@Service("loginService")
+public class LoginServiceImpl implements ILoginService{
 	
    @Autowired  
     private UserMapper userMapper;  
 
-	@Override
 	public User getUserById(int id) {
 		return userMapper.selectByPrimaryKey(id);
 	}

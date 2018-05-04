@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.roberthuang.ssm.bean.User;
-import com.roberthuang.ssm.service.ILoginservice;  
+import com.roberthuang.ssm.service.ILoginService;  
 
 @RunWith(SpringJUnit4ClassRunner.class)   
 @ContextConfiguration(locations = {"classpath:application-spring.xml"})  
@@ -18,7 +18,7 @@ public class TestMybatis {
 		Logger logger = LoggerFactory.getLogger(TestMybatis.class);
 	
 	   @Autowired  
-	    private ILoginservice loginService;  
+	    private ILoginService loginService;  
 	  
 	    @Test  
 	    public void test() {  

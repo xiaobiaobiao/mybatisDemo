@@ -10,7 +10,6 @@
   <name>ssmHello</name>
   <url>http://maven.apache.org</url>
 
- 
 	<properties>
 		<spring.version>4.3.0.RELEASE</spring.version>
 		<shiro.version>1.2.3</shiro.version>
@@ -120,7 +119,7 @@
 			<version>${spring.version}</version>
 		</dependency>
 		
-
+		<!-- shiro 依赖包  -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
@@ -202,6 +201,32 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
+		</dependency>
+		<!-- dubbo 依赖 -->
+		<dependency>
+		  <groupId>com.alibaba</groupId>
+		  <artifactId>dubbo</artifactId>
+		  <version>2.5.3</version>
+		   <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>netty</artifactId>
+                    <groupId>org.jboss.netty</groupId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.zookeeper</groupId>
+		  <artifactId>zookeeper</artifactId>
+		  <version>3.4.5</version>
+		</dependency>
+		<dependency>
+			  <groupId>com.101tec</groupId>
+			  <artifactId>zkclient</artifactId>
+			  <version>0.4</version>
 		</dependency>
 	</dependencies>
 
