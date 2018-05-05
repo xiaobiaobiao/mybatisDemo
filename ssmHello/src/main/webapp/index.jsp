@@ -4,7 +4,7 @@
 <html>
 <title>爱芳网</title>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <style type="text/css">  
         *{margin: 0;padding: 0;}  
         body  
@@ -44,7 +44,6 @@
             height: 50px;  
               
             line-height: 50px;  
-            background-image: url(images/foot.png);  
             background-color: rgb(247,247,247);  
             background-repeat: no-repeat;  
         }  
@@ -75,7 +74,6 @@
             display: inline-block;  
             float: right;  
             font-size: 14px;  
-            background-image: url(images/phone.png);  
             background-repeat: no-repeat;  
             margin: 30px 0px 10px 0px;  
         }  
