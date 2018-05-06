@@ -4,13 +4,13 @@
 <html>
 <title>爱芳网</title>
 <head>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath} /js/jquery-3.3.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <style type="text/css">  
         *{margin: 0;padding: 0;}  
         body  
         {  
-			 background-image: url("${pageContext.request.contextPath}/static/img/333.jpg");      
+			 background-image: url("${pageContext.request.contextPath}/img/333.jpg");      
         	 background-size:cover;  
             font-size: 12px; 
          

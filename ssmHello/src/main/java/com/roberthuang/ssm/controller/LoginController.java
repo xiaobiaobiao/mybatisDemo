@@ -35,12 +35,22 @@ public class LoginController {
 	private Logger log = LoggerFactory.getLogger(LoginController.class);
 
 	@RequestMapping(value = "/login", produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	private String getOtherList(@RequestParam String userName,@RequestParam String pwd) {
+	private String getOtherList(@RequestParam String userName,@RequestParam String pwd,Model model) {
 		
 		log.info("userName:{},pwd:{}",userName,pwd);
 		User user = loginService.getUserByName(userName);
-		return user == null ? "用户不存在" : user.toString();
+		if(null == user){
+			model.addAttribute("msg","用户不存在");
+			return "fail";
+		}
+		if(!user.getUserkey().equals(pwd)){
+			model.addAttribute("msg","密码不正确");
+			return "fail";
+		}
+		model.addAttribute("userName",userName);
+		return "successLogin";
+	
+		
 	}
 	
 	@RequestMapping(value = "/login.htm", produces = "text/html;charset=UTF-8")
@@ -93,5 +103,10 @@ public class LoginController {
 			e.printStackTrace();
 		}
 		 return null;
+	}
+	
+	@RequestMapping(value = "/boostrap/test.htm", produces = "text/html;charset=UTF-8")
+	private String test() {
+			return "boostrap/test";
 	}
 }

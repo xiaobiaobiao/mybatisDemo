@@ -19,7 +19,7 @@
     <!-- 分解配置 jdbc.properites -->  
     <context:property-placeholder location="classpath:jdbc.properties" /> 
         <!-- 引入服务提供者配置文件 -->
-    <import resource="dubbo-provider.xml" /> 
+  <!--   <import resource="dubbo-provider.xml" />  -->
     <!-- 数据源c3p0 -->  
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> 
         <property name="driverClass" value="${jdbc.driver}" />

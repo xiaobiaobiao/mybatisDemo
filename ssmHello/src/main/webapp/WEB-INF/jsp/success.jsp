@@ -11,7 +11,6 @@
         *{margin: 0;padding: 0;}  
         body  
         {  
-			 background-image: url("${pageContext.request.contextPath}/static/img/333.jpg");      
         	 background-size:cover;  
             font-size: 12px; 
          
