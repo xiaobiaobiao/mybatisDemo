@@ -5,11 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.roberthuang.ssm.bean.User;
 import com.roberthuang.ssm.service.ILoginService;
@@ -28,55 +26,66 @@ import com.roberthuang.ssm.service.ILoginService;
 @Controller
 @RequestMapping(value = "/")
 public class LoginController {
-
+	
+	
+	private String VIEW_FAIL = "fail"; //失败页面
+	
+	private String VIEW_LOGIN = "login"; //登录页面 
+	
+	private String VIEW_LOGIN_SUCCESS = "successLogin"; //登录成功页面(后续个人中心页面)
+	
+	private String VIEW_REGISTER = "register"; //注册页面
+	
+	/**
+	 * 说明: 为了统一规范,需要跳转页面的路径统一带.htm
+	 */
+	
 	@Autowired
 	private ILoginService loginService;
 	
 	private Logger log = LoggerFactory.getLogger(LoginController.class);
 
 	@RequestMapping(value = "/login", produces = "text/html;charset=UTF-8")
-	private String getOtherList(@RequestParam String userName,@RequestParam String pwd,Model model) {
+	private String getOtherList(@RequestParam User user,Model model) {
 		
-		log.info("userName:{},pwd:{}",userName,pwd);
-		User user = loginService.getUserByName(userName);
-		if(null == user){
+		log.info("userName:{},pwd:{}",user.getName(),user.getUserkey());
+		User user1 = loginService.getUserByName(user.getName());
+		if(null == user1){
 			model.addAttribute("msg","用户不存在");
-			return "fail";
+			return VIEW_FAIL;
 		}
-		if(!user.getUserkey().equals(pwd)){
+		if(!user1.getUserkey().equals(user.getUserkey())){
 			model.addAttribute("msg","密码不正确");
-			return "fail";
+			return VIEW_FAIL;
 		}
-		model.addAttribute("userName",userName);
-		return "successLogin";
-	
-		
+		model.addAttribute("userName",user.getName());
+		return VIEW_LOGIN_SUCCESS;
 	}
 	
 	@RequestMapping(value = "/login.htm", produces = "text/html;charset=UTF-8")
 	private String login() {
-		return "login";
+		return VIEW_LOGIN;
 	}
 	
 	@RequestMapping(value = "/success.htm", produces = "text/html;charset=UTF-8")
 	private String success(@RequestParam String userName,Model model) {
 		if(!StringUtils.isNotEmpty(userName) || userName.equals("null") || userName.equals("''")){
-			return "success";
+			return VIEW_LOGIN_SUCCESS;
 		}
 		model.addAttribute("userName", userName);
-		return "success";
+		return VIEW_FAIL;
 	}
 	
 	
 	@RequestMapping(value = "/fail.htm", produces = "text/html;charset=UTF-8")
 	private String fail() {
-		return "fail";
+		return VIEW_FAIL;
 	}
 	
 	
 	@RequestMapping(value = "/register.htm", produces = "text/html;charset=UTF-8")
 	private String registerHtml() {
-		return "register";
+		return VIEW_REGISTER;
 	}
 	
 	@RequestMapping(value = "/register", produces = "text/html;charset=UTF-8")
@@ -95,8 +104,8 @@ public class LoginController {
 		model.addAttribute("userName", userName);
 		int i = loginService.register(userName, password);
 		if(i > 0 ){
-			log.info("---userName={}注册成功",userName);
-			 return "success";
+			 log.info("---userName={}注册成功",userName);
+			 return VIEW_LOGIN_SUCCESS;
 		}
 		
 		} catch (Exception e) {

@@ -256,23 +256,5 @@
          
 	</build>
 	
-		<repositories>
-		<repository>
-			<id>nexus</id>
-			<name>nexus Repository</name>
-			<url>http://www.52hfang.com:8081/nexus/content/repositories/central/</url>
-		</repository>
-	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<url>http://www.52hfang.com:8081/nexus/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Maven2 Snapshot Repository</name>
-			<url>http://www.52hfang.com:8081/nexus/content/repositories/snapshots</url >
-		</snapshotRepository>
-	</distributionManagement>
+	
 </project>
