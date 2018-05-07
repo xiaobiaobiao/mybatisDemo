@@ -4,7 +4,7 @@
 <html>
 <title>爱芳网</title>
 <head>
-<script type="text/javascript" src="${pageContext.request.contextPath} /js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <style type="text/css">  
         *{margin: 0;padding: 0;}  
@@ -174,7 +174,7 @@
         <div class="main">  
          
                 <input type="text" id="userName" name="userName"  class="demok3_input" placeholder="请输入用户名" style="height: 35px;width: 200px;margin-bottom: 30px;margin-top: 30px;margin-left: 23%;"/>  
-                <input type="password" id="pwd"  name="pwd"  class="demok3_input" placeholder="请输入密码"  style="height: 35px;width: 200px;margin-bottom: 30px;margin-left: 23%;"/>  
+                <input type="password" id="pwd"  name="pwd"  class="demok3_input" placeholder="请输入密码"  maxlength=12 style="height: 35px;width: 200px;margin-bottom: 30px;margin-left: 23%;"/>  
                  <input type="password" id="pwd1"  name="pwd1"  class="demok3_input" placeholder="请输入确认密码"  style="height: 35px;width: 200px;margin-bottom: 30px;margin-left: 23%;"/>  
                 <input type="submit" id="zhuce" value="注册"  class="demok3_a" style="height: 32px;width: 100px;margin-left:35%;"/>  
           
@@ -200,6 +200,11 @@ $(document).ready(function(){
 			alert("请输入密码");
 			return;
 		}
+		if(pwd.length <=8){
+
+			alert("请输入8位以上长度的密码");
+			return;
+		}
 		if(pwd1 == null || pwd1 == undefined || pwd1 == ""){
 			alert("请输入确认密码");
 			return;
@@ -209,6 +214,8 @@ $(document).ready(function(){
 			alert("密码不一致");
 			return;
 		}
+
+	
 
 
 		$.ajax({  
@@ -220,7 +227,6 @@ $(document).ready(function(){
 				password:pwd
              },  
             success:function(data){ 
-            	
             	if(data == "success"){
             		  window.location.href = "${pageContext.request.contextPath}/success.htm?userName="+userName;  
             	}else{

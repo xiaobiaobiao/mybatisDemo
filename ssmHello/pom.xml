@@ -230,10 +230,28 @@
 		</dependency>
 		
 		<dependency>
-   <groupId>org.javassist</groupId>
-   <artifactId>javassist</artifactId>
-   <version>3.18.0-GA</version>
-</dependency>
+		   <groupId>org.javassist</groupId>
+		   <artifactId>javassist</artifactId>
+		   <version>3.18.0-GA</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		
+		 <dependency>  
+            <groupId>javax.validation</groupId>  
+            <artifactId>validation-api</artifactId>  
+            <version>2.0.1.Final</version>  
+        </dependency>  
+  
+		  <dependency>  
+		    <groupId>org.hibernate</groupId>  
+		    <artifactId>hibernate-validator</artifactId>  
+		    <version>5.1.0.Final</version>  
+		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -1,14 +1,20 @@
 package com.roberthuang.ssm.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.alibaba.dubbo.common.utils.StringUtils;
+import com.alibaba.fastjson.JSONObject;
 import com.roberthuang.ssm.bean.User;
 import com.roberthuang.ssm.service.ILoginService;
 
@@ -42,24 +48,47 @@ public class LoginController {
 	
 	@Autowired
 	private ILoginService loginService;
+
 	
 	private Logger log = LoggerFactory.getLogger(LoginController.class);
+	
 
-	@RequestMapping(value = "/login", produces = "text/html;charset=UTF-8")
-	private String getOtherList(@RequestParam User user,Model model) {
+
+	@RequestMapping(value = "/login", produces = "applicaiont/json;charset=UTF-8")
+	@ResponseBody
+	private String getOtherList(@Valid User user,BindingResult result,Model model) {
 		
-		log.info("userName:{},pwd:{}",user.getName(),user.getUserkey());
-		User user1 = loginService.getUserByName(user.getName());
-		if(null == user1){
-			model.addAttribute("msg","用户不存在");
-			return VIEW_FAIL;
+		JSONObject json = new JSONObject();
+		if(result.hasErrors()){
+			log.info("参数有误:{}",result.getFieldError().getDefaultMessage());
+			json.put("code", result.getFieldError().getField()+"-error");
+			json.put("msg", result.getFieldError().getDefaultMessage());
+			return json.toJSONString();
 		}
-		if(!user1.getUserkey().equals(user.getUserkey())){
-			model.addAttribute("msg","密码不正确");
-			return VIEW_FAIL;
+		
+		try {
+			log.info("user:{}",user.toString());
+			User datauser = loginService.getUserByName(user.getName());
+			
+			json.put("code", "SUCCESS");
+			if(null == datauser){
+				json.put("msg", "用户不存在");
+				json.put("code", "name-error");
+				return json.toJSONString();
+			}
+			if(!user.getUserkey().equals(datauser.getUserkey())){
+				json.put("msg", "密码错误");
+				json.put("code", "userkey-error");
+				return json.toJSONString();
+			}
+			json.put("user", user);
+			model.addAttribute("userName",user.getName());
+		} catch (Exception e) {
+			log.error("系统异常",e);
 		}
-		model.addAttribute("userName",user.getName());
-		return VIEW_LOGIN_SUCCESS;
+		return json.toJSONString();
+	
+	
 	}
 	
 	@RequestMapping(value = "/login.htm", produces = "text/html;charset=UTF-8")
@@ -70,10 +99,10 @@ public class LoginController {
 	@RequestMapping(value = "/success.htm", produces = "text/html;charset=UTF-8")
 	private String success(@RequestParam String userName,Model model) {
 		if(!StringUtils.isNotEmpty(userName) || userName.equals("null") || userName.equals("''")){
-			return VIEW_LOGIN_SUCCESS;
+			return VIEW_FAIL;
 		}
 		model.addAttribute("userName", userName);
-		return VIEW_FAIL;
+		return VIEW_LOGIN_SUCCESS;
 	}
 	
 	
